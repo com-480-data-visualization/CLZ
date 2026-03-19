@@ -2,9 +2,9 @@
 
 | Student's name | SCIPER |
 | -------------- | ------ |
-| | |
-| | |
-| | |
+| Lei Chen | 339715 |
+| Peiyu Liu | 405266 |
+| Yixiao Zhang | 356302 |
 
 [Milestone 1](#milestone-1) • [Milestone 2](#milestone-2) • [Milestone 3](#milestone-3)
 
@@ -23,7 +23,17 @@ Please, fill the following sections about your project.
 >
 > Hint: some good pointers for finding quality publicly available datasets ([Google dataset search](https://datasetsearch.research.google.com/), [Kaggle](https://www.kaggle.com/datasets), [OpenSwissData](https://opendata.swiss/en/), [SNAP](https://snap.stanford.edu/data/) and [FiveThirtyEight](https://data.fivethirtyeight.com/)).
 
-We used several publicly available datasets from the **QS World University Rankings**, collected from Kaggle, covering the period from **2018 to 2025**. Specifically, we combined the dataset covering the years **2018 through 2022** ([QS World Ranked Universities 2018–2022](https://www.kaggle.com/datasets/aklimarimi/qs-world-ranked-universities-20182022)) with separate annual datasets for **2023** ([2023 University Ranking](https://www.kaggle.com/datasets/kathuman/2023-university-ranking)), **2024** ([QS World University Rankings 2024](https://www.kaggle.com/datasets/joebeachcapital/qs-world-university-rankings-2024)), and **2025** ([QS World University Rankings 2025](https://www.kaggle.com/datasets/melissamonfared/qs-world-university-rankings-2025)). From these datasets, we extracted the core attributes needed for our study: **university name, country, city, year, rank, and score**.
+We utilized several publicly available datasets from the official **QS World University Rankings** website, covering the period from **2023 to 2026**. Specifically, we integrated four separate annual datasets: the QS World University Rankings for 2023, 2024, 2025, and 2026. From these sources, we extracted the core attributes essential for our study, including **university name, country, academic year, global rank, and overall score**.
+
+Overall, the data quality is sufficient for visual analysis. However, some preprocessing is required before performing formal analysis.
+
+- **Standardizing names:**  
+  The spelling of university names and country names does not always match perfectly across datasets, so we need to standardize naming conventions to avoid duplicates and inconsistencies.
+
+- **Basic cleaning tasks:**  
+  Additional preprocessing includes renaming columns, selecting the relevant fields, and checking for missing or inconsistent ranking values and scores.
+
+Overall, the preprocessing effort is moderate. Although the data is already available in a structured format, careful harmonization is still necessary to make cross-year comparisons reliable.
 
 ### Problematic
 
@@ -31,7 +41,7 @@ We used several publicly available datasets from the **QS World University Ranki
 > - What am I trying to show with my visualization?
 > - Think of an overview for the project, your motivation, and the target audience.
 >
-Our project explores the following question: **Where are the world’s top universities located?** By analyzing the **QS World University Rankings** from **2018 to 2025**, our goal is to map the geographic distribution of top universities and examine how this distribution has changed over time.
+Our project explores the following question: **Where are the world’s top universities located?** By analyzing the **QS World University Rankings** from **2023 to 2026**, our goal is to map the geographic distribution of top universities and examine how this distribution has changed over time.
 
 More specifically, we aim to identify:
 
@@ -48,21 +58,7 @@ Our target audience includes **students and parents** interested in internationa
 > Pre-processing of the data set you chose
 > - Show some basic statistics and get insights about the data
 >
-Overall, the data quality is sufficient for visual analysis. However, some preprocessing is required before performing formal analysis.
 
-- **Merging datasets across years:**  
-  The main challenge is to combine data from different sources and years into a single consistent table.
-
-- **Standardizing names:**  
-  The spelling of university names and country names does not always match perfectly across datasets, so we need to standardize naming conventions to avoid duplicates and inconsistencies.
-
-- **Completing city information:**  
-  City information is included in only one dataset, so we need to match universities across datasets and propagate this field to the other years.
-
-- **Basic cleaning tasks:**  
-  Additional preprocessing includes renaming columns, selecting the relevant fields, and checking for missing or inconsistent ranking values and scores.
-
-Overall, the preprocessing effort is moderate. Although the data is already available in a structured format, careful harmonization is still necessary to make cross-year comparisons reliable.
 
 ### Related work
 
@@ -71,6 +67,21 @@ Overall, the preprocessing effort is moderate. Although the data is already avai
 > - Why is your approach original?
 > - What source of inspiration do you take? Visualizations that you found on other websites or magazines (might be unrelated to your data).
 > - In case you are using a dataset that you have already explored in another context (ML or ADA course, semester project...), you are required to share the report of that work to outline the differences with the submission for this class.
+
+**What others have already done with the data?**
+
+The QS World University Rankings dataset is frequently used in educational data analysis, but most existing work remains institutional or performance-centric. On platforms like Kaggle and Tableau Public, common visualizations include static "Top 10" bar charts, scatter plots correlating academic reputation with employer reputation, or simple choropleth maps showing university counts per country for a single year. These approaches typically treat the rankings as a competitive leaderboard rather than a dynamic geographic resource.
+
+**Why is your approach original?**
+
+Our approach shifts the focus from institutional competition to spatiotemporal resource distribution.We track the 2023–2026 period to capture the shifting landscape of global education instead of providing a static snapshot. To preserve data integrity, we utilize a modular structure rather than a single flattened table, ensuring that newer metrics like ‘Sustainability’ remain distinct and can be analyzed for their specific impact on regional trends. Our analysis treats top-tier universities as a collective geographic asset comparable to GDP or natural resources, emphasizing the growth of regional hubs over individual school rankings.
+
+
+**What source of inspiration do you take?**
+
+Our project is inspired by previous visualizations of the geographic distribution of Nobel Prize laureates. Those projects effectively demonstrated how intellectual prestige is not static; it clusters in specific global hubs and shifts over decades in response to economic and political changes.
+
+We saw a clear parallel between the concentration of Nobel laureates and the density of top-tier universities. Just as Nobel Prize maps distinguish between "historical centers" (like Europe and North America) and "emerging nodes," we want to use the 2023–2026 QS data to identify similar patterns in higher education. By adapting the heatmaps and cluster visualizations used in those award-distribution studies, we aim to show whether the "center of gravity" for elite education is following a similar eastward shift or remaining anchored in traditional Western strongholds. This allows us to treat university rankings not just as a list of schools, but as a map of global intellectual capital.
 
 ## Milestone 2 (17th April, 5pm)
 
