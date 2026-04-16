@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>QS University Rankings Explorer</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+      <div class="logo">QS Explorer</div>
+      <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#map">Map</a></li>
+        <li><a href="#">Scatter</a></li>
+        <li><a href="#">Radar</a></li>
+        <li><a href="#">Table</a></li>
+      </ul>
+    </nav>
+  
+    <!-- TITLE -->
+    <div class="header-content">
+      <h1>QS University Rankings Explorer</h1>
+      <p>Explore global university rankings through interactive visualizations</p>
+    </div>
+  
+  </header>
+
+<!-- MAIN CONTENT -->
+<main>
+
+  <!-- MAP -->
+  <section class="card">
+    <h2>Global Distribution of Universities</h2>
+    <div id="map"></div>
+  </section>
+
+  <!-- PLACEHOLDERS -->
+  <section class="row">
+    <div class="card">
+      <h2>Scatter Plot (example)</h2>
+      <div id="scatter"></div>
+    </div>
+
+    <div class="card">
+      <h2>Radar Chart (example)</h2>
+      <div id="radar"></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Ranking Table (Coming Soon)</h2>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <p>Data source: QS World University Rankings</p>
+  <p>COM-480 Data Visualization Project</p>
+</footer>
+
+<script src="script/global_map.js"></script>
+<script src="script/scatter.js"></script>
+<script src="script/radar.js"></script>
+</body>
+</html>
