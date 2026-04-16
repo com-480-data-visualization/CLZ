@@ -59,6 +59,15 @@ Our target audience includes **students and parents** interested in internationa
 > - Show some basic statistics and get insights about the data
 >
 
+Based on the 2026 QS rankings dataset, this table summarizes the concentration of top-tier universities across different global regions, focusing specifically on the top 200 entries
+
+| Region | count |
+| -------------- | ------ |
+| Europe | 81 |
+| Americas | 54 |
+| Asia | 49 |
+| Oceania | 15 |
+| Africa | 1 |
 
 ### Related work
 
