@@ -94,7 +94,7 @@ We saw a clear parallel between the concentration of Nobel laureates and the den
 
 ## Milestone 2 (17th April, 5pm)
 
-**10% of the final grade**
+**You can find the report for Milestone 2 [Here](Milestone2.pdf)**
 
 
 ## Milestone 3 (29th May, 5pm)
