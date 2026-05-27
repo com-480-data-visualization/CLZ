@@ -1,4 +1,4 @@
-﻿rank,previous rank,name,location code,location,size,focus,research,status,ar score,ar rank,er score,er rank,fsr score,fsr rank,cpf score,cpf rank,ifr score,ifr rank,isr score,isr rank,irn score,irn rank,ger score,ger rank,overall score
+﻿rank,previous rank,name,location code,country/territory,size,focus,research,status,ar score,ar rank,er score,er rank,fsr score,fsr rank,cpf score,cpf rank,ifr score,ifr rank,isr score,isr rank,irn score,irn rank,ger score,ger rank,overall score
 1,1,Massachusetts Institute of Technology (MIT) ,US,United States,M,CO,VH,B,100.0,5,100.0,4,100.0,14,100.0,5,100.0,54,90.0,109,96.1,58,100.0,3,"100,0"
 2,  3=,University of Cambridge,UK,United Kingdom,L,FC,VH,A,100.0,2,100.0,2,100.0,11,92.3,55,100.0,60,96.3,70,99.5,6,100.0,9,"98,8"
 3,  3=,Stanford University,US,United States,L,FC,VH,B,100.0,4,100.0,5,100.0,6,99.9,9,99.8,74,60.3,235,96.3,55,100.0,2,"98,5"

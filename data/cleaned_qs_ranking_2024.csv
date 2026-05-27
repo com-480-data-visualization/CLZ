@@ -1,4 +1,4 @@
-﻿rank,previous rank,name,location code,location,size,focus,research,status,ar score,ar rank,er score,er rank,fsr score,fsr rank,cpf score,cpf rank,ifr score,ifr rank,isr score,isr rank,irn score,irn rank,ger score,ger rank,sus score,sus rank,overall score
+﻿rank,previous rank,name,location code,country/territory,size,focus,research,status,ar score,ar rank,er score,er rank,fsr score,fsr rank,cpf score,cpf rank,ifr score,ifr rank,isr score,isr rank,irn score,irn rank,ger score,ger rank,sus score,sus rank,overall score
 1,1,Massachusetts Institute of Technology (MIT) ,US,United States,M,CO,VH,B,100.0,4,100.0,2,100.0,16,100.0,4,100.0,56,88.2,128,94.3,58,100.0,4,95.2,51,"100,0"
 2,2,University of Cambridge,UK,United Kingdom,L,FC,VH,A,100.0,3,100.0,4,100.0,14,92.3,68,100.0,64,95.8,85,99.9,7,100.0,6,97.3,33=,"99,2"
 3,4,University of Oxford,UK,United Kingdom,L,FC,VH,A,100.0,2,100.0,5,100.0,8,90.6,73,98.2,110,98.2,60,100.0,1,100.0,3,97.8,26=,"98,9"
@@ -165,6 +165,7 @@
 =164,157,Hanyang University,KR,South Korea,L,FC,VH,B,49.0,167,81.3,70,83.5,117,23.3,510,16.9,632,54.3,269,15.6,587,24.8,336,77.7,163=,"49,7"
 =164,135,Kyushu University,JP,Japan,L,FC,VH,A,57.4,132,70.0,104,85.7,103,23.9,503,14.7,671,25.6,467,32.8,436,15.4,547,77.7,163=,"49,7"
 =164,184,Universitat de Barcelona,ES,Spain,XL,FC,VH,A,73.2,83,23.0,412,13.1,701+,41.8,325,21.8,574,28.5,437,97.8,23,39.8,180,98.1,23,"49,7"
+166,155=,Emory University,US,United States,L,FC,VH,,25.6,342,16.4,522,97.3,51,84.0,98,53.5,343,32.4,398,56.8,268,23.6,358,85.7,115,"49,6"
 167,162,University of York,UK,United Kingdom,L,FC,VH,A,43.5,194,35.3,275,45.0,351,40.3,342,88.3,192,78.2,171,79.2,150,19.8,421,97.8,26=,"49,4"
 168,188,University of Florida,US,United States,XL,FC,VH,A,48.0,171,58.7,137,71.3,180,26.6,467,18.8,604,10.8,699,97.7,24,39.0,184,95.7,48,"49,1"
 =169,164=,"University of Maryland, College Park",US,United States,XL,FC,VH,A,49.2,165,26.1,369,35.1,451,68.4,154,31.6,477,14.0,639,85.5,113,41.6,176,81.7,137=,"48,9"
@@ -197,5 +198,4 @@
 196,141=,Hokkaido University,JP,Japan,L,FC,VH,A,57.3,134,66.0,119,75.8,162,27.8,451,17.5,621,14.4,633,38.1,392,12.9,665,30.7,438=,"46,2"
 197,174=,Indian Institute of Technology Delhi (IITD),IN,India,M,CO,VH,A,51.2,158,75.9,80,22.0,630,64.3,182,2.4,701+,1.4,701+,6.6,701+,32.8,234,37.5,382=,"46,1"
 198,220=,Universidad de los Andes,CO,Colombia,L,FC,HI,B,65.4,103,95.7,35,17.6,701+,5.9,701+,26.4,517,2.0,701+,11.1,649,96.2,23,40.2,362=,"46,0"
-166,155=,Emory University,US,United States,L,FC,VH,,25.6,342,16.4,522,97.3,51,84.0,98,53.5,343,32.4,398,56.8,268,23.6,358,85.7,115,"49,6"
 =199,215=,Universidad Autónoma de Madrid,ES,Spain,L,FC,VH,A,60.4,117,57.7,145,34.5,464,25.1,485,7.8,701+,12.0,678,80.4,143,19.6,428,88.8,97=,"45,9"
