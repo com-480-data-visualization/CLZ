@@ -1,4 +1,8 @@
 (function() {
+    // ============================================================================
+    // 1. STATE & CONFIGURATION
+    // Sets up the global variables, state trackers, and column definitions.
+    // ============================================================================
     let currentYear = "2026";
     let showMoreColumns = false;
     let sortKey = "rank";
@@ -11,7 +15,7 @@
     let tableTimer;
     const availableYears = ["2023", "2024", "2025", "2026"];
 
-    // Core and Extended Column Definitions
+    // Core columns shown by default
     const baseColumns = [
         { label: "Rank (#)", key: "rank", isNumeric: true },
         { label: "University Name", key: "name", isNumeric: false },
@@ -19,6 +23,7 @@
         { label: "Overall Score", key: "overall", isNumeric: true }
     ];
 
+    // Extended metrics shown when "Show All Metrics" is toggled
     const extendedColumns = [
         { label: "Academic Reputation (AR)", key: "ar", isNumeric: true },
         { label: "Employer Reputation (ER)", key: "er", isNumeric: true },
@@ -31,6 +36,10 @@
         { label: "Sustainability (SUS)", key: "sus", isNumeric: true }
     ];
 
+    // ============================================================================
+    // 2. HELPER FUNCTIONS
+    // Utilities for normalizing data (like fixing country names and parsing scores).
+    // ============================================================================
     const COUNTRY_MAP = {
         "United States": "United States of America",
         "Hong Kong SAR": "Hong Kong SAR, China",
@@ -38,12 +47,18 @@
         "South Korea": "Republic of Korea",
     };
       
+    // Safely parses string scores into floats, handling empty strings or dashes
     const parseScore = (str) => {
         if (!str || str.trim() === "" || str === "-") return 0;
         let cleanedStr = str.toString().replace(/[=+\s]/g, '').replace(',', '.');
         return parseFloat(cleanedStr) || 0;
     };
 
+
+    // ============================================================================
+    // 3. PLAYBACK CONTROLS (AUTO-PLAY TIMELINE)
+    // Handles the automatic cycling of years to show ranking evolution over time.
+    // ============================================================================
     function stepTable() {
         let currentIndex = availableYears.indexOf(currentYear);
         currentIndex++;
@@ -53,10 +68,9 @@
         window.TableApp.setYear(availableYears[currentIndex]);
     }
 
-    // --- 统一播放按钮样式切换逻辑 ---
     function stopTablePlayback() {
         tablePlaying = false;
-        // 停止时变红
+        // Turn the button red to indicate it is stopped and ready to play
         d3.select("#table-play-btn")
             .html("▶ Play")
             .style("background-color", "#dc3545")
@@ -67,7 +81,7 @@
 
     function startTablePlayback() {
         tablePlaying = true;
-        // 播放时变黑
+        // Turn the button dark grey to indicate it is actively playing
         d3.select("#table-play-btn")
             .html("⏸ Pause")
             .style("background-color", "#333")
@@ -77,7 +91,11 @@
         stepTable(); 
     }
 
-    // Load CSVs
+
+    // ============================================================================
+    // 4. DATA LOADING & INITIALIZATION
+    // Fetches all 4 years of CSV data simultaneously and binds UI event listeners.
+    // ============================================================================
     Promise.all([
         d3.csv("data/cleaned_qs_ranking_2023.csv"),
         d3.csv("data/cleaned_qs_ranking_2024.csv"),
@@ -89,12 +107,13 @@
         rawDataByYear["2025"] = data2025;
         rawDataByYear["2026"] = data2026;
 
-        // 手动初始化一次按钮样式为红色 Play
+        // Initialize play button style
         d3.select("#table-play-btn")
             .style("background-color", "#dc3545")
             .style("color", "white")
             .style("border", "none");
 
+        // Bind Year Toggle Buttons
         d3.selectAll(".year-btn[data-year]").on("click", function() {
             if (tablePlaying) stopTablePlayback(); 
 
@@ -104,6 +123,7 @@
             processAndSortData();
         });
 
+        // Bind Column Expand/Collapse Toggle
         d3.select("#toggle-columns-btn").on("click", function() {
             showMoreColumns = !showMoreColumns;
             d3.select(this).text(showMoreColumns ? "Hide Metrics ⇅" : "Show All Metrics ⇅");
@@ -111,6 +131,7 @@
             renderBody();
         });
 
+        // Bind Search Bar Input
         d3.select("#table-search").on("input", function(event) {
             const keyword = event.target.value.toLowerCase();
             const filtered = activeData.filter(d => 
@@ -120,6 +141,7 @@
             renderBody(filtered);
         });
 
+        // Bind Play/Pause Button
         d3.select("#table-play-btn").on("click", function() {
             if (tablePlaying) {
                 stopTablePlayback();
@@ -128,14 +150,20 @@
             }
         });
 
+        // Initial Render
         processAndSortData();
 
-        // === 新增：页面加载后自动播放表格动画 ===
+        // Auto-start playback shortly after loading
         setTimeout(() => {
             if (!tablePlaying) startTablePlayback();
-        }, 1000); // 给地图一点优先权，1秒后表格开始动画
+        }, 1000);
     });
 
+
+    // ============================================================================
+    // 5. DATA PROCESSING & SORTING
+    // Cleans the raw CSV rows into uniform objects and executes the sort logic.
+    // ============================================================================
     function processAndSortData(skipAnimation = false) {
         const yearData = rawDataByYear[currentYear] || [];
         activeData = yearData.map(d => {
@@ -179,6 +207,11 @@
         });
     }
 
+
+    // ============================================================================
+    // 6. HEADER RENDERING
+    // Builds the <thead> and handles click-to-sort functionality.
+    // ============================================================================
     function renderHeader() {
         let columns = showMoreColumns ? [...baseColumns, ...extendedColumns] : baseColumns;
         const displayColumns = [...columns, { label: "Compare in radar", key: "action", isNumeric: false }];
@@ -209,11 +242,18 @@
         });
     }
 
+
+    // ============================================================================
+    // 7. BODY RENDERING & FLIP ANIMATION
+    // Builds the <tbody>. Implements a physics-based FLIP (First, Last, Invert, Play)
+    // animation to slide rows into their new positions when data sorts/updates.
+    // ============================================================================
     function renderBody(dataToRender, skipAnimation = false) {
         const list = dataToRender || activeData;
         const columns = showMoreColumns ? [...baseColumns, ...extendedColumns] : baseColumns;
         const tbody = d3.select("#data-table tbody");
 
+        // Handle empty states (e.g., if a search yields no results)
         if (list.length === 0) {
             tbody.selectAll("*").remove();
             tbody.append("tr").append("td")
@@ -223,6 +263,8 @@
             return;
         }
 
+        // --- FLIP Step 1: FIRST ---
+        // Record the current (old) Y-position of every existing row
         const oldPositions = new Map();
         tbody.selectAll("tr").each(function(d) {
             if (d && d.name) {
@@ -230,13 +272,16 @@
             }
         });
 
+        // Bind data using the university name as the unique key
         const rows = tbody.selectAll("tr").data(list, d => d.name);
         rows.exit().remove();
         const rowsEnter = rows.enter().append("tr").style("opacity", 0);
         const rowsMerge = rowsEnter.merge(rows);
         
+        // Reorder DOM nodes to match sorted data
         rowsMerge.order();
 
+        // Populate row cells and comparison buttons
         rowsMerge.each(function(rowData) {
             const rowSelection = d3.select(this);
             rowSelection.selectAll("*").remove(); 
@@ -249,6 +294,7 @@
                 rowSelection.append("td").text(value);
             });
 
+            // Action buttons to send data to Radar Chart
             const actionTd = rowSelection.append("td").style("white-space", "nowrap").style("vertical-align", "middle");
             const btnGroup = actionTd.append("div").attr("class", "compare-btn-group");
 
@@ -269,9 +315,10 @@
 
         rowsMerge.each(function(d, i) { 
             const node = this;
-            const newY = node.getBoundingClientRect().top; 
+            const newY = node.getBoundingClientRect().top;
             const oldY = oldPositions.get(d.name);
             
+            // Optimization: Only animate the top 10 rows to save rendering resources
             if (skipAnimation || i >= 10) {
                 d3.select(node)
                   .style("transform", "translateY(0px)")
@@ -287,6 +334,7 @@
             const staggerDelay = i * 80; 
 
             if (oldY !== undefined && oldY !== newY) {
+                // Invert: Calculate difference and instantly shift element back to old position
                 const deltaY = oldY - newY;
                 
                 d3.select(node)
@@ -298,16 +346,18 @@
                   .style("color", "#d32f2f") 
                   .style("opacity", 1);
                 
+                // Play: Transition element from inverted position back to natural position (0px)
                 d3.select(node)
                   .transition()
                   .delay(staggerDelay) 
                   .duration(2500) 
-                  .ease(d3.easeBackOut.overshoot(1.2)) 
+                  .ease(d3.easeBackOut.overshoot(1.2)) // Spring-like easing
                   .style("transform", "translateY(0px)")
                   .style("background-color", "#ffffff") 
                   .style("color", "#475569") 
                   .style("box-shadow", "none") 
                   .on("end", function() {
+                      // Cleanup inline styles after animation finishes
                       d3.select(this)
                         .style("position", null)
                         .style("z-index", null)
@@ -316,6 +366,7 @@
                   });
 
             } else if (oldY === undefined) {
+                // Intro animation for brand new rows entering the view
                 d3.select(node)
                   .style("transform", "translateY(30px)")
                   .style("opacity", 0)
@@ -326,6 +377,7 @@
                   .style("transform", "translateY(0px)")
                   .style("opacity", 1);
             } else {
+                // Row didn't move
                 d3.select(node)
                   .style("opacity", 1)
                   .style("transform", "translateY(0px)");
@@ -333,6 +385,12 @@
         });
     }
 
+
+    // ============================================================================
+    // 8. GLOBAL API INTERFACE
+    // Exposes methods so other visualizations (Map, Scatter Plot) can control 
+    // the table (e.g., jump to a university, pause timelines, force update year).
+    // ============================================================================
     window.TableApp = {
         pause: function() {
             if (typeof tablePlaying !== 'undefined' && tablePlaying) {
@@ -341,20 +399,24 @@
         },
 
         highlightRow: function(universityName, targetYear) {
+            // Stop automated playbacks when user initiates an active cross-component search
             this.pause();
             if (window.MapTimelineApp) window.MapTimelineApp.pause();
 
+            // Sync year if necessary (skipping animation to prevent jumping)
             if (targetYear && targetYear !== currentYear) {
                 this.setYear(targetYear, true); 
             }
 
             setTimeout(() => {
+                // Clear any active search filters
                 const searchInput = d3.select("#table-search");
                 if (searchInput.property("value") !== "") {
                     searchInput.property("value", "");
                     searchInput.node().dispatchEvent(new Event("input")); 
                 }
 
+                // Locate the targeted row
                 const rows = d3.select("#data-table tbody").selectAll("tr");
                 let targetNode = null;
                 
@@ -364,11 +426,12 @@
                     }
                 });
 
+                // Scroll to and highlight the row briefly
                 if (targetNode) {
                     targetNode.scrollIntoView({ behavior: "smooth", block: "center" });
                     
                     d3.select(targetNode)
-                      .style("background-color", "#ffeb3b") 
+                      .style("background-color", "#ffeb3b") // Yellow highlight flash
                       .transition()
                       .duration(2000)
                       .style("background-color", null);
@@ -378,11 +441,13 @@
         
         setYear: function(year, skipAnimation = false) {
             currentYear = year.toString();
+            // Update UI buttons
             d3.selectAll(".year-btn[data-year]").classed("active", false);
             d3.selectAll(".year-btn[data-year]").filter(function() { 
                 return d3.select(this).attr("data-year") === currentYear; 
             }).classed("active", true);
             
+            // Trigger table update
             processAndSortData(skipAnimation);
         }
     };
