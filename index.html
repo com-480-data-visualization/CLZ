@@ -5,61 +5,208 @@
   <title>QS University Rankings Explorer</title>
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/map.css">
 </head>
 <body>
 
-<!-- HEADER -->
-<header>
+<nav class="navbar">
+  <div class="logo">QS Explorer</div>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#map-section">Map</a></li>
+    <li><a href="#scatter-section">Scatter</a></li>
+    <li><a href="#radar-section">Radar</a></li>
+    <li><a href="#table-section">Table</a></li>
+  </ul>
+</nav>
 
-    <!-- NAVBAR -->
-    <nav class="navbar">
-      <div class="logo">QS Explorer</div>
-      <ul class="nav-links">
-        <li><a href="#">Home</a></li>
-        <li><a href="#map">Map</a></li>
-        <li><a href="#">Scatter</a></li>
-        <li><a href="#">Radar</a></li>
-        <li><a href="#">Table</a></li>
-      </ul>
-    </nav>
-  
-    <!-- TITLE -->
-    <div class="header-content">
-      <h1>QS University Rankings Explorer</h1>
-      <p>Explore global university rankings through interactive visualizations</p>
+<header id="home" class="hero-section">
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="pulse-dot"></span> 2023 - 2026 Data Edition
     </div>
-  
-  </header>
+    
+    <h1 class="hero-title">
+      QS University Rankings <br>
+      <span class="text-gradient">Interactive Explorer</span>
+    </h1>
+    
+    <p class="hero-desc">
+      Dive deep into the elite echelon of global higher education. This analytical dashboard deconstructs four years of comprehensive QS ranking data, moving beyond simple numbers to reveal the strategic DNA of the world's top institutions. 
+    </p>
 
-<!-- MAIN CONTENT -->
+    <div class="hero-features">
+      <div class="feature-item">
+        <span class="feature-icon">🌍</span>
+        <span><strong>Global Map:</strong> Track geographical shifts</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">📊</span>
+        <span><strong>Scatter Plot:</strong> Discover metric correlations</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">🕸️</span>
+        <span><strong>Radar Chart:</strong> Benchmark institutional DNA</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">📈</span>
+        <span><strong>Fluid Table:</strong> Analyze year-over-year trends</span>
+      </div>
+    </div>
+
+    <div class="hero-actions">
+      <a href="#map-section" class="hero-btn btn-primary">Start Exploring ⬇</a>
+    </div>
+  </div>
+</header>
+
 <main>
 
-  <!-- MAP -->
-  <section class="card">
-    <h2>Global Distribution of Universities</h2>
+  <section id="map-section" class="card map-section">
+    <h2>Global Distribution of Universities Over Time</h2>
+    
+    <div id="year-label">2026</div>
     <div id="map"></div>
+
+    <div id="map-controls">
+      <button id="play-btn">▶ Play</button>
+      
+      <div class="slider-container">
+        <input type="range" id="year-slider" min="2023" max="2026" value="2026" step="1">
+        <div class="slider-ticks">
+          <span>2023</span><span>2024</span><span>2025</span><span>2026</span>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <!-- PLACEHOLDERS -->
+  <div id="university-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modal-title">Universities List</h3>
+        <span class="close-btn">&times;</span>
+      </div>
+      <div class="modal-body">
+        <table id="modal-table">
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>University Name</th>
+              <th>Overall Score</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
   <section class="row">
-    <div class="card">
-      <h2>Scatter Plot (example)</h2>
-      <div id="scatter"></div>
-    </div>
+    <div id="scatter-section" class="card editorial-card">
+      <div class="art-layout">
+        
+        <div class="art-text-panel">
+          <h2 class="art-title">Data Insights</h2>
+          <p class="art-subtitle">Decoding the driving forces behind the world's top universities.</p>
+          
+          <div class="art-divider"></div> <div class="art-desc">
+            <p>Based on the scatter plot analysis across all QS indicators, several crucial patterns emerge:</p>
+            
+            <ul style="padding-left: 16px; margin-top: 12px; display: flex; flex-direction: column; gap: 12px;">
+              <li>
+                <strong>Reputation is King:</strong> Both <em>Academic</em> and <em>Employer Reputation</em> show the strongest, almost exponential correlation with the Overall Score. Excelling here is a strict prerequisite for entering the elite Top 20.
+              </li>
+              <li>
+                <strong>The Diversity Baseline:</strong> Metrics like <em>International Faculty/Student Ratios</em> show massive clustering at the 100-point mark. Maximizing diversity does not guarantee a high overall rank; rather, it acts as a basic entry ticket for global universities.
+              </li>
+              <li>
+                <strong>Research Outweighs Class Size:</strong> <em>Citations per Faculty</em> and <em>Research Networks</em> demonstrate a much tighter correlation to overall success than the <em>Faculty-Student Ratio</em>, which displays surprising variance even among highly-ranked institutions.
+              </li>
+            </ul>
+          </div>
 
-    <div class="card">
-      <h2>Radar Chart (example)</h2>
-      <div id="radar"></div>
+          <div class="art-pro-tip">
+            <span class="tip-badge">✦ Interactive Feature</span>
+            <p>Hit <strong style="color: #dc3545;">▶ Play Metrics</strong> to automatically cycle through indicators. Click any dot to pause the timeline and locate the university below.</p>
+          </div>
+        </div>
+
+        <div class="art-chart-panel">
+          <div id="scatter"></div>
+        </div>
+
+      </div>
     </div>
   </section>
 
-  <section class="card">
-    <h2>Ranking Table (Coming Soon)</h2>
+  <section class="row">
+    <div id="radar-section" class="card editorial-card">
+      <div class="art-layout">
+        
+        <div class="art-chart-panel">
+          <div id="radar"></div>
+        </div>
+
+        <div class="art-text-panel">
+          <h2 class="art-title">Profiling Excellence</h2>
+          <p class="art-subtitle">Beyond the overall score: visualizing the unique DNA of each university.</p>
+          
+          <div class="art-divider"></div> <div class="art-desc">
+            <p>A single ranking number often obscures the nuanced strengths and weaknesses of an institution. This Radar Chart deconstructs performance across five core dimensions:</p>
+            
+            <ul style="padding-left: 16px; margin-top: 12px; display: flex; flex-direction: column; gap: 12px;">
+              <li>
+                <strong>Institutional "Shape":</strong> Is a university a specialized research powerhouse (peaking in <em>Citations per Faculty</em>) or a balanced all-rounder? The polygon's geometry instantly reveals its strategic priorities.
+              </li>
+              <li>
+                <strong>Head-to-Head Benchmarking:</strong> By overlapping two profiles, you can see exactly where one outperforms the other. A university might trail in overall rank but completely dominate in <em>Employer Reputation</em> or <em>Sustainability</em>.
+              </li>
+            </ul>
+          </div>
+
+          <div class="art-pro-tip" style="border-left-color: #0288d1;">
+            <span class="tip-badge" style="color: #0288d1;">✦ Interactive Feature</span>
+            <p style="margin-bottom: 6px;"><strong>Two ways to compare:</strong></p>
+            <ul style="padding-left: 16px; margin: 0; display: flex; flex-direction: column; gap: 4px;">
+              <li>Use the <strong>dropdown menus</strong> to the left to manually select universities.</li>
+              <li>OR scroll down to the Ranking Table and click the <strong style="color: #d32f2f;">Red</strong> / <strong style="color: #0288d1;">Blue</strong> buttons to send data straight to this chart!</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  
+  <section id="table-section" class="card">
+    <h2>Detailed University Ranking Data</h2>
+    <div id="table-toolbar">
+      <div id="year-toggles">
+        <button id="table-play-btn" class="year-btn" style="color: #0288d1; font-weight: bold;">▶ Play</button>
+        <div style="width: 1px; background: #cbd5e1; margin: 4px 8px; border-radius: 1px;"></div>
+        
+        <button class="year-btn active" data-year="2026">2026</button>
+        <button class="year-btn" data-year="2025">2025</button>
+        <button class="year-btn" data-year="2024">2024</button>
+        <button class="year-btn" data-year="2023">2023</button>
+      </div>
+
+      <input type="text" id="table-search" placeholder="🔍 Search university or country...">
+      <button id="toggle-columns-btn">Show All Metrics ⇅</button>
+    </div>
+
+    <div class="table-wrapper">
+      <table id="data-table">
+        <thead>
+          <tr></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
   </section>
 
 </main>
 
-<!-- FOOTER -->
 <footer>
   <p>Data source: QS World University Rankings</p>
   <p>COM-480 Data Visualization Project</p>
@@ -68,5 +215,7 @@
 <script src="script/global_map.js"></script>
 <script src="script/scatter.js"></script>
 <script src="script/radar.js"></script>
+<script src="script/table.js"></script>
+<script src="script/map_timeline.js"></script>
 </body>
 </html>
